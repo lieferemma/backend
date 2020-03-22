@@ -1,7 +1,7 @@
 pub use crate::api::grpc::end_customer_server::{EndCustomer, EndCustomerServer};
 use crate::api::grpc::{
-    AvailableProductReply, AvailableProductRequest, CustomerInterestRequest, MobileShop,
-    OrderReply, OrderRequest, OrderStatusReply, OrderStatusRequest,
+    AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest, MobileShop,
+    OrderReply, OrderRequest, OrderStatusReply, OrderStatusRequest, OrderedProduct, Product,
 };
 use futures::Stream;
 use std::pin::Pin;
@@ -27,7 +27,31 @@ impl EndCustomer for EndCustomerServerImpl {
         &self,
         _request: Request<OrderRequest>,
     ) -> Result<Response<OrderReply>, Status> {
-        unimplemented!()
+        let product = Product {
+            product_uiid: "91ea969e-6cd8-41ab-8faa-636cb9ffd991".to_string(),
+            title: "Kaisersemmel".to_string(),
+            description: "Unser Klassiker, das Kaiserbrötchen. Macht sich immer gut entweder mit Nutella oder Marmelade.".to_string(),
+            url: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kaisersemmel-.jpg".to_string(),
+            price: 90,
+            currency: Currency::Eur as i32,
+        };
+
+        let ordered_product = OrderedProduct {
+            product: Some(product),
+            quantity_ordered: 5,
+            total_price: 450,
+            currency: Currency::Eur as i32,
+        };
+
+        let order_reply = OrderReply {
+            order_uuid: "3feedb57-9f6e-476f-93fb-5515ea831d5f".to_string(),
+            order_id: "abcd".to_string(),
+            currency: Currency::Eur as i32,
+            total: 450,
+            ordered_products: vec![ordered_product],
+        };
+
+        Ok(Response::new(order_reply))
     }
 
     async fn available_products(
