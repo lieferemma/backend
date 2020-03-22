@@ -1,5 +1,6 @@
 # Lieferemma - Backend
-
+[![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Cargo-Deny](https://img.shields.io/badge/cargo--deny-Dependencies%20checked-blue)
 ![CI](https://github.com/lieferemma/backend/workflows/CI/badge.svg)
 
 # Current State
@@ -30,9 +31,9 @@ RUST_LOG=debug cargo run
 
 # Architecture
 
-Database: [PostgreSQL](https://www.postgresql.org/)
-Object Storage: [MinIO](https://min.io/)
-API: [gRPC](gRPC.io/)
+- Database: [PostgreSQL](https://www.postgresql.org/)
+- Object Storage: [MinIO](https://min.io/)
+- API: [gRPC](gRPC.io/)
 
 # Database
 
