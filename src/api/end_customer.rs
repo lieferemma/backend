@@ -1,18 +1,17 @@
 pub use crate::api::grpc::end_customer_server::{EndCustomer, EndCustomerServer};
 use crate::api::grpc::{
     AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest,
-    DeliveryProduct, MobileShop, OrderReply, OrderRequest, OrderStatusReply, OrderStatusRequest,
-    OrderedProduct, Product,
+    DeliveryPoint, DeliveryProduct, DeliveryStatus, MobileShop, OrderReply, OrderRequest,
+    OrderStatusReply, OrderStatusRequest, OrderedProduct, Position, Product, Route,
 };
-use futures::Stream;
+use futures::channel::mpsc;
+use futures_util::sink::SinkExt;
 use prost_types::Timestamp;
-use std::pin::Pin;
 use tonic::{Request, Response, Status, Streaming};
 
 pub struct EndCustomerServerImpl {}
 
-type RegisterCustomerInterestStream =
-    Pin<Box<dyn Stream<Item = Result<MobileShop, Status>> + Send + Sync>>;
+type RegisterCustomerInterestStream = mpsc::Receiver<Result<MobileShop, Status>>;
 
 #[tonic::async_trait]
 impl EndCustomer for EndCustomerServerImpl {
@@ -22,7 +21,114 @@ impl EndCustomer for EndCustomerServerImpl {
         &self,
         _request: Request<Streaming<CustomerInterestRequest>>,
     ) -> Result<Response<Self::RegisterCustomerInterestStream>, Status> {
-        unimplemented!()
+        let route_points = vec![
+            // Berlin, Schlossplatz
+            Position {
+                latitude: 52.518230,
+                longitude: 13.401070,
+            },
+            // Berlin, Alexanderplatz
+            Position {
+                latitude: 52.521751,
+                longitude: 13.411500,
+            },
+        ];
+
+        let delivery_points = vec![
+            DeliveryPoint {
+                uuid: "3e7d0e06-9d65-4e79-afb8-e594e2162eca".to_string(),
+                // position of this delivery point
+                position: Some(Position {
+                    latitude: 52.518230,
+                    longitude: 13.401070,
+                }),
+                // planed arrival time for this delivery point
+                scheduled_time: Some(Timestamp::default()),
+                // minimum time in seconds delivery point is available at this position
+                parking_time: 1800,
+            },
+            DeliveryPoint {
+                uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
+                // position of this delivery point
+                position: Some(Position {
+                    latitude: 52.521751,
+                    longitude: 13.411500,
+                }),
+                // planed arrival time for this delivery point
+                scheduled_time: Some(Timestamp::default()),
+                // minimum time in seconds delivery point is available at this position
+                parking_time: 1800,
+            },
+        ];
+
+        let route = Route {
+            route_uuid: "47b85ebc-9b72-490f-80e3-2e4e465a3853".to_string(),
+            delivery_points,
+            route_points,
+        };
+
+        let current_position = Position {
+            latitude: 52.520008,
+            longitude: 13.404954,
+        };
+
+        let current_delivery_point = DeliveryPoint {
+            uuid: "3e7d0e06-9d65-4e79-afb8-e594e2162eca".to_string(),
+            // position of this delivery point
+            position: Some(Position {
+                latitude: 52.518230,
+                longitude: 13.401070,
+            }),
+            // planed arrival time for this delivery point
+            scheduled_time: Some(Timestamp::default()),
+            // minimum time in seconds delivery point is available at this position
+            parking_time: 1800,
+        };
+
+        let next_delivery_point = DeliveryPoint {
+            uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
+            // position of this delivery point
+            position: Some(Position {
+                latitude: 52.521751,
+                longitude: 13.411500,
+            }),
+            // planed arrival time for this delivery point
+            scheduled_time: Some(Timestamp::default()),
+            // minimum time in seconds delivery point is available at this position
+            parking_time: 1800,
+        };
+
+        let mobile_shop = MobileShop {
+            mobile_shop_uuid: "e6d99988-a0ed-4665-a368-be1847146c2b".to_string(),
+            mobile_url: "https://lieferemma.de".to_string(),
+            // Title of delivery to be displayed to customer e.g. Bakery John Doe
+            title: "Bäckerei Max Musterfrau".to_string(),
+            // Last location updated
+            current_position: Some(current_position),
+            // Last location update
+            last_seen: Some(Timestamp::default()),
+            // Current delivery point
+            current_delivery_point: Some(current_delivery_point),
+            // Next delivery point
+            next_delivery_point: Some(next_delivery_point),
+            // Is the delivery vehicle currently stationary or not
+            delivery_status: DeliveryStatus::Parked as i32,
+            // Estimated time of arrival at next delivery point in seconds
+            next_delivery_point_eta: 0,
+            // Estimated time of arrival at the pick up delivery point in seconds
+            pick_up_delivery_point_eta: 0,
+            route: Some(route),
+        };
+
+        let (mut tx, rx) = mpsc::channel(4);
+        let shops = vec![mobile_shop];
+        tokio::spawn(async move {
+            for shop in &shops[..] {
+                tx.send(Ok(shop.clone())).await.unwrap();
+            }
+        });
+
+        Ok(Response::new(rx))
     }
 
     async fn place_order(
