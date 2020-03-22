@@ -22,28 +22,28 @@ impl EndCustomer for EndCustomerServerImpl {
 
     async fn register_customer_interest(
         &self,
-        request: Request<Streaming<CustomerInterestRequest>>,
+        _request: Request<Streaming<CustomerInterestRequest>>,
     ) -> Result<Response<Self::RegisterCustomerInterestStream>, Status> {
         unimplemented!()
     }
 
     async fn place_order(
         &self,
-        request: Request<OrderRequest>,
+        _request: Request<OrderRequest>,
     ) -> Result<Response<OrderReply>, Status> {
         unimplemented!()
     }
 
     async fn available_products(
         &self,
-        request: Request<AvailableProductRequest>,
+        _request: Request<AvailableProductRequest>,
     ) -> Result<Response<AvailableProductReply>, Status> {
         unimplemented!()
     }
 
     async fn order_status(
         &self,
-        request: Request<OrderStatusRequest>,
+        _request: Request<OrderStatusRequest>,
     ) -> Result<Response<OrderStatusReply>, Status> {
         unimplemented!()
     }
