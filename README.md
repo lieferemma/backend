@@ -1,7 +1,8 @@
 # Lieferemma - Backend
-[![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Cargo-Deny](https://img.shields.io/badge/cargo--deny-Dependencies%20checked-blue)
 ![CI](https://github.com/lieferemma/backend/workflows/CI/badge.svg)
+![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![Cargo-Deny](https://img.shields.io/badge/cargo--deny-Dependencies%20checked-blue)
+![Docker-Image](https://img.shields.io/docker/image-size/lieferemma/backend)
 
 # Current State
 - [ ] Database setup
@@ -27,6 +28,12 @@ Build and run from source:
 
 ```
 RUST_LOG=debug cargo run
+```
+
+Run [docker image](https://hub.docker.com/r/lieferemma/backend)
+
+```
+docker run -d lieferemma:latest
 ```
 
 # Architecture
