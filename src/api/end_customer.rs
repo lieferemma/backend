@@ -45,7 +45,7 @@ impl EndCustomer for EndCustomerServerImpl {
                 // planed arrival time for this delivery point
                 scheduled_time: Some(Timestamp::default()),
                 // minimum time in seconds delivery point is available at this position
-                parking_time: 1800,
+                departure_time: Some(Timestamp::default()),
             },
             DeliveryPoint {
                 uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
@@ -57,7 +57,7 @@ impl EndCustomer for EndCustomerServerImpl {
                 // planed arrival time for this delivery point
                 scheduled_time: Some(Timestamp::default()),
                 // minimum time in seconds delivery point is available at this position
-                parking_time: 1800,
+                departure_time: Some(Timestamp::default()),
             },
         ];
 
@@ -82,7 +82,7 @@ impl EndCustomer for EndCustomerServerImpl {
             // planed arrival time for this delivery point
             scheduled_time: Some(Timestamp::default()),
             // minimum time in seconds delivery point is available at this position
-            parking_time: 1800,
+            departure_time: Some(Timestamp::default()),
         };
 
         let next_delivery_point = DeliveryPoint {
@@ -95,7 +95,7 @@ impl EndCustomer for EndCustomerServerImpl {
             // planed arrival time for this delivery point
             scheduled_time: Some(Timestamp::default()),
             // minimum time in seconds delivery point is available at this position
-            parking_time: 1800,
+            departure_time: Some(Timestamp::default()),
         };
 
         let mobile_shop = MobileShop {
@@ -151,9 +151,23 @@ impl EndCustomer for EndCustomerServerImpl {
             currency: Currency::Eur as i32,
         };
 
+        let pick_up_point = DeliveryPoint {
+            uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
+            // position of this delivery point
+            position: Some(Position {
+                latitude: 52.521_751,
+                longitude: 13.411_500,
+            }),
+            // planed arrival time for this delivery point
+            scheduled_time: Some(Timestamp::default()),
+            // minimum time in seconds delivery point is available at this position
+            departure_time: Some(Timestamp::default()),
+        };
+
         let order_reply = OrderReply {
             order_uuid: "3feedb57-9f6e-476f-93fb-5515ea831d5f".to_string(),
             order_id: "abcd".to_string(),
+            pick_up_point: Some(pick_up_point),
             currency: Currency::Eur as i32,
             total: 450,
             ordered_products: vec![ordered_product],
