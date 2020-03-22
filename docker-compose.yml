@@ -1,0 +1,26 @@
+version: '3.7'
+
+# minio server's web interface will be accessible on the host at port 9001
+services:
+  minio:
+    image: minio/minio:RELEASE.2020-03-19T21-49-00Z
+    volumes:
+      - data-shops:/data/shops
+      - data-articles:/data/articles
+    ports:
+      - "9001:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server http://minio{1...4}/data{1...2}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+## By default this config uses default local driver,
+## For custom volumes replace with volume driver configuration.
+volumes:
+  data-shops:
+  data-articles:
