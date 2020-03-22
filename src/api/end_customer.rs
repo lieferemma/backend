@@ -24,13 +24,13 @@ impl EndCustomer for EndCustomerServerImpl {
         let route_points = vec![
             // Berlin, Schlossplatz
             Position {
-                latitude: 52.518230,
-                longitude: 13.401070,
+                latitude: 52.518_230,
+                longitude: 13.401_070,
             },
             // Berlin, Alexanderplatz
             Position {
-                latitude: 52.521751,
-                longitude: 13.411500,
+                latitude: 52.521_751,
+                longitude: 13.411_500,
             },
         ];
 
@@ -39,8 +39,8 @@ impl EndCustomer for EndCustomerServerImpl {
                 uuid: "3e7d0e06-9d65-4e79-afb8-e594e2162eca".to_string(),
                 // position of this delivery point
                 position: Some(Position {
-                    latitude: 52.518230,
-                    longitude: 13.401070,
+                    latitude: 52.518_230,
+                    longitude: 13.401_070,
                 }),
                 // planed arrival time for this delivery point
                 scheduled_time: Some(Timestamp::default()),
@@ -51,8 +51,8 @@ impl EndCustomer for EndCustomerServerImpl {
                 uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
                 // position of this delivery point
                 position: Some(Position {
-                    latitude: 52.521751,
-                    longitude: 13.411500,
+                    latitude: 52.521_751,
+                    longitude: 13.411_500,
                 }),
                 // planed arrival time for this delivery point
                 scheduled_time: Some(Timestamp::default()),
@@ -68,16 +68,16 @@ impl EndCustomer for EndCustomerServerImpl {
         };
 
         let current_position = Position {
-            latitude: 52.520008,
-            longitude: 13.404954,
+            latitude: 52.520_008,
+            longitude: 13.404_954,
         };
 
         let current_delivery_point = DeliveryPoint {
             uuid: "3e7d0e06-9d65-4e79-afb8-e594e2162eca".to_string(),
             // position of this delivery point
             position: Some(Position {
-                latitude: 52.518230,
-                longitude: 13.401070,
+                latitude: 52.518_230,
+                longitude: 13.401_070,
             }),
             // planed arrival time for this delivery point
             scheduled_time: Some(Timestamp::default()),
@@ -89,8 +89,8 @@ impl EndCustomer for EndCustomerServerImpl {
             uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
             // position of this delivery point
             position: Some(Position {
-                latitude: 52.521751,
-                longitude: 13.411500,
+                latitude: 52.521_751,
+                longitude: 13.411_500,
             }),
             // planed arrival time for this delivery point
             scheduled_time: Some(Timestamp::default()),
