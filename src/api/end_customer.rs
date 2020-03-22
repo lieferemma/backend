@@ -1,9 +1,11 @@
 pub use crate::api::grpc::end_customer_server::{EndCustomer, EndCustomerServer};
 use crate::api::grpc::{
-    AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest, MobileShop,
-    OrderReply, OrderRequest, OrderStatusReply, OrderStatusRequest, OrderedProduct, Product,
+    AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest,
+    DeliveryProduct, MobileShop, OrderReply, OrderRequest, OrderStatusReply, OrderStatusRequest,
+    OrderedProduct, Product,
 };
 use futures::Stream;
+use prost_types::Timestamp;
 use std::pin::Pin;
 use tonic::{Request, Response, Status, Streaming};
 
@@ -58,7 +60,26 @@ impl EndCustomer for EndCustomerServerImpl {
         &self,
         _request: Request<AvailableProductRequest>,
     ) -> Result<Response<AvailableProductReply>, Status> {
-        unimplemented!()
+        let product = Product {
+            product_uiid: "91ea969e-6cd8-41ab-8faa-636cb9ffd991".to_string(),
+            title: "Kaisersemmel".to_string(),
+            description: "Unser Klassiker, das Kaiserbrötchen. Macht sich immer gut entweder mit Nutella oder Marmelade.".to_string(),
+            url: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kaisersemmel-.jpg".to_string(),
+            price: 90,
+            currency: Currency::Eur as i32,
+        };
+
+        let deliverable_product = DeliveryProduct {
+            product: Some(product),
+            quantity_available: 100,
+        };
+
+        let reply = AvailableProductReply {
+            updated: Some(Timestamp::default()),
+            deliverable_products: vec![deliverable_product],
+        };
+
+        Ok(Response::new(reply))
     }
 
     async fn order_status(
