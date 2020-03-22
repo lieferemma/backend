@@ -12,7 +12,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let end_customer_server = EndCustomerServerImpl {};
     let driver_server = DriverServerImpl {};
 
-    println!("EndCustomer gRPC API listening on {}", addr);
+    println!("gRPC API served from {}", addr);
 
     Server::builder()
         .add_service(EndCustomerServer::new(end_customer_server))
