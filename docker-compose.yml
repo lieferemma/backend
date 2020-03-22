@@ -5,8 +5,8 @@ services:
   minio:
     image: minio/minio:RELEASE.2020-03-19T21-49-00Z
     volumes:
-      - data-shops:/data/shops
-      - data-articles:/data/articles
+      - shops-data:/data/shops
+      - articles-data:/data/articles
     ports:
       - "9001:9000"
     environment:
@@ -19,8 +19,29 @@ services:
       timeout: 20s
       retries: 3
 
+  db:
+    image: postgres:12.2-alpine
+    restart: always
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: example
+
+  db-ui:
+    image: dpage/pgadmin4:4.19
+    restart: always
+    environment:
+        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - 80:8080
+
 ## By default this config uses default local driver,
 ## For custom volumes replace with volume driver configuration.
 volumes:
-  data-shops:
-  data-articles:
+  shops-data:
+  articles-data:
+  postgres:
+  pgadmin:
