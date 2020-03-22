@@ -1,15 +1,11 @@
-pub use api::end_customer_server::{EndCustomer, EndCustomerServer};
-use api::{
+pub use crate::api::grpc::end_customer_server::{EndCustomer, EndCustomerServer};
+use crate::api::grpc::{
     AvailableProductReply, AvailableProductRequest, CustomerInterestRequest, MobileShop,
     OrderReply, OrderRequest, OrderStatusReply, OrderStatusRequest,
 };
 use futures::Stream;
 use std::pin::Pin;
 use tonic::{Request, Response, Status, Streaming};
-
-pub mod api {
-    tonic::include_proto!("lieferemma");
-}
 
 pub struct EndCustomerServerImpl {}
 
