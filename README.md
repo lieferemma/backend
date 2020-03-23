@@ -22,35 +22,46 @@
   - [ ] Connect to database
   - [ ] Connect to MinIO for article and shop image links
 
-# Run
+# Getting started
 
-Build and run from source:
+## Run backend
+Build and run from source using docker-compose:
+
+```
+docker-compose up -d
+```
+
+To avoid rebuilding the backend docker image during development you should directly run cargo:
 
 ```
 RUST_LOG=debug cargo run
 ```
 
-Run [docker image](https://hub.docker.com/r/lieferemma/backend)
+## Prepare database
+This projects uses ["Diesel"](https://diesel.rs/) for database migrations.
+The database migrations create the initial database schema, set up the required Postgres extensions and in general allow updating the schema of an existing database.
+You must install the [diesel cli tool](https://diesel.rs/guides/getting-started/) in order to run the database migrations.
 
+To run the migrations in a dev setup run:
 ```
-docker run -d lieferemma:latest
+source .dev.env
+diesel migration run
 ```
 
 # Architecture
-
 - Database: [PostgreSQL](https://www.postgresql.org/)
+  - Extension: [PostGIS](https://postgis.net/) - Spatial database extension of PostgreSQL
+  - Extension: [uuid-ossp](https://www.postgresql.org/docs/current/uuid-ossp.html) - generate UUIDs using one of several standard algorithms
 - Object Storage: [MinIO](https://min.io/)
-- API: [gRPC](gRPC.io/)
+- API: [gRPC](https://gRPC.io/)
 
 # Database
-
 - Host name/address postgres
 - Port 5432
 - Username as POSTGRES_USER, by default: postgres
 - Password as POSTGRES_PASSWORD, by default changeme
 
 ## Pgadmin4
-
 - Host name/address pgadmin
 - Port 5050
 - Username as PGADMIN_DEFAULT_EMAIL, by default: pgadmin4@pgadmin.org
