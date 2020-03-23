@@ -66,3 +66,14 @@ diesel migration run
 - Port 5050
 - Username as PGADMIN_DEFAULT_EMAIL, by default: pgadmin4@pgadmin.org
 - Password as PGADMIN_DEFAULT_PASSWORD, by default: admin
+
+# Development Guidelines
+
+## Database
+
+Please make sure to use the following special types in Postgres:
+
+- `UUID` for primary keys (ids) - this allows possible sharding in the future, uuids can be generated decentralized
+- `TIMESTAMPTZ` for timestamps - this allows supporting multiple time zones in the future
+- `GEOGRAPHY` for geographical positions (latitude/longitude) - spatial PostGIS datatype
+- `MONEY` for currency amounts e.g. prices - does not lead to rounding errors

@@ -1,0 +1,1 @@
+DROP delivery_points;
