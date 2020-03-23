@@ -136,7 +136,7 @@ impl EndCustomer for EndCustomerServerImpl {
         _request: Request<OrderRequest>,
     ) -> Result<Response<OrderReply>, Status> {
         let product = Product {
-            product_uiid: "91ea969e-6cd8-41ab-8faa-636cb9ffd991".to_string(),
+            product_uuid: "91ea969e-6cd8-41ab-8faa-636cb9ffd991".to_string(),
             title: "Kaisersemmel".to_string(),
             description: "Unser Klassiker, das Kaiserbrötchen. Macht sich immer gut entweder mit Nutella oder Marmelade.".to_string(),
             url: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kaisersemmel-.jpg".to_string(),
@@ -181,7 +181,7 @@ impl EndCustomer for EndCustomerServerImpl {
         _request: Request<AvailableProductRequest>,
     ) -> Result<Response<AvailableProductReply>, Status> {
         let product = Product {
-            product_uiid: "91ea969e-6cd8-41ab-8faa-636cb9ffd991".to_string(),
+            product_uuid: "91ea969e-6cd8-41ab-8faa-636cb9ffd991".to_string(),
             title: "Kaisersemmel".to_string(),
             description: "Unser Klassiker, das Kaiserbrötchen. Macht sich immer gut entweder mit Nutella oder Marmelade.".to_string(),
             url: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kaisersemmel-.jpg".to_string(),
