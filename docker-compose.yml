@@ -21,7 +21,7 @@ services:
 
   postgres:
     container_name: postgres_container
-    image: postgres:12.2-alpine
+    build: "./docker/postgres"
     environment:
       POSTGRES_DB: lieferemma
       POSTGRES_USER: ${POSTGRES_USER:-postgres}

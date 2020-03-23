@@ -48,3 +48,10 @@ docker run -d lieferemma:latest
 - Port 5432
 - Username as POSTGRES_USER, by default: postgres
 - Password as POSTGRES_PASSWORD, by default changeme
+
+## Pgadmin4
+
+- Host name/address pgadmin
+- Port 5050
+- Username as PGADMIN_DEFAULT_EMAIL, by default: pgadmin4@pgadmin.org
+- Password as PGADMIN_DEFAULT_PASSWORD, by default: admin
