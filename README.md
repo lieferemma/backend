@@ -70,6 +70,8 @@ diesel migration run
 # Development Guidelines
 
 ## Database
+Please make sure to excessively use `FOREIGN KEY` and `NOT NULL` constraints.
+This will reduce possible errors in the future.
 
 Please make sure to use the following special types in Postgres:
 
