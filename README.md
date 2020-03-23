@@ -2,7 +2,7 @@
 ![CI](https://github.com/lieferemma/backend/workflows/CI/badge.svg)
 ![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Cargo-Deny](https://img.shields.io/badge/cargo--deny-Dependencies%20checked-blue)
-![Docker-Image](https://img.shields.io/docker/image-size/lieferemma/backend)
+[![](https://images.microbadger.com/badges/image/lieferemma/backend.svg)](https://microbadger.com/images/lieferemma/backend)
 
 # Current State
 - [ ] Database setup
