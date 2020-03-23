@@ -100,7 +100,7 @@ impl EndCustomer for EndCustomerServerImpl {
 
         let mobile_shop = MobileShop {
             mobile_shop_uuid: "e6d99988-a0ed-4665-a368-be1847146c2b".to_string(),
-            mobile_url: "https://lieferemma.de".to_string(),
+            image_url: "https://github.com/lieferemma/media-content/raw/master/LieferEmma_Logo_b_600x600px.png".to_string(),
             // Title of delivery to be displayed to customer e.g. Bakery John Doe
             title: "Bäckerei Max Musterfrau".to_string(),
             // Last location updated
