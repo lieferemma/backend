@@ -36,7 +36,7 @@ impl EndCustomer for EndCustomerServerImpl {
 
         let delivery_points = vec![
             DeliveryPoint {
-                uuid: "3e7d0e06-9d65-4e79-afb8-e594e2162eca".to_string(),
+                delivery_point_uuid: "3e7d0e06-9d65-4e79-afb8-e594e2162eca".to_string(),
                 // position of this delivery point
                 position: Some(Position {
                     latitude: 52.518_230,
@@ -48,7 +48,7 @@ impl EndCustomer for EndCustomerServerImpl {
                 departure_time: Some(Timestamp::default()),
             },
             DeliveryPoint {
-                uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
+                delivery_point_uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
                 // position of this delivery point
                 position: Some(Position {
                     latitude: 52.521_751,
@@ -73,7 +73,7 @@ impl EndCustomer for EndCustomerServerImpl {
         };
 
         let current_delivery_point = DeliveryPoint {
-            uuid: "3e7d0e06-9d65-4e79-afb8-e594e2162eca".to_string(),
+            delivery_point_uuid: "3e7d0e06-9d65-4e79-afb8-e594e2162eca".to_string(),
             // position of this delivery point
             position: Some(Position {
                 latitude: 52.518_230,
@@ -86,7 +86,7 @@ impl EndCustomer for EndCustomerServerImpl {
         };
 
         let next_delivery_point = DeliveryPoint {
-            uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
+            delivery_point_uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
             // position of this delivery point
             position: Some(Position {
                 latitude: 52.521_751,
@@ -152,7 +152,7 @@ impl EndCustomer for EndCustomerServerImpl {
         };
 
         let pick_up_point = DeliveryPoint {
-            uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
+            delivery_point_uuid: "a9848bee-0ae2-4479-92e6-7c64657b860e".to_string(),
             // position of this delivery point
             position: Some(Position {
                 latitude: 52.521_751,
