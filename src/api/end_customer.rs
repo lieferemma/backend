@@ -7,7 +7,7 @@ use crate::api::grpc::{
 use futures::channel::mpsc;
 use futures_util::sink::SinkExt;
 use prost_types::Timestamp;
-use tonic::{Request, Response, Status, Streaming};
+use tonic::{Request, Response, Status};
 
 pub struct EndCustomerServerImpl {}
 
@@ -19,7 +19,7 @@ impl EndCustomer for EndCustomerServerImpl {
 
     async fn register_customer_interest(
         &self,
-        _request: Request<Streaming<CustomerInterestRequest>>,
+        _request: Request<CustomerInterestRequest>,
     ) -> Result<Response<Self::RegisterCustomerInterestStream>, Status> {
         let route_points = vec![
             // Berlin, Schlossplatz

@@ -6,7 +6,7 @@ use crate::api::grpc::{
 };
 use futures::Stream;
 use std::pin::Pin;
-use tonic::{self, Request, Response, Status, Streaming};
+use tonic::{self, Request, Response, Status};
 
 pub use crate::api::grpc::driver_server::DriverServer;
 
@@ -34,7 +34,7 @@ impl Driver for DriverServerImpl {
 
     async fn send_position(
         &self,
-        _request: Request<Streaming<DriverPosition>>,
+        _request: Request<DriverPosition>,
     ) -> Result<Response<SendPositionReply>, Status> {
         unimplemented!()
     }
