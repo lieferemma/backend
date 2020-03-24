@@ -113,10 +113,10 @@ impl EndCustomer for EndCustomerServerImpl {
             next_delivery_point: Some(next_delivery_point),
             // Is the delivery vehicle currently stationary or not
             delivery_status: DeliveryStatus::Parked as i32,
-            // Estimated time of arrival at next delivery point in seconds
-            next_delivery_point_eta: 0,
-            // Estimated time of arrival at the pick up delivery point in seconds
-            pick_up_delivery_point_eta: 0,
+            // Estimated time of arrival at next delivery point
+            next_delivery_point_eta: Some(Timestamp::default()),
+            // Estimated time of arrival at the pick up delivery point
+            pick_up_delivery_point_eta: Some(Timestamp::default()),
             route: Some(route),
         };
 
