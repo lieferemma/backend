@@ -7,4 +7,4 @@ file = "src/db/schema.rs"
 # will act as though the --with-docs flag was passed by default.
 # This places a doc comment on all tables and columns.
 with_docs = true
-import_types = ["crate::db::custom_types::*", "diesel::sql_types::*", "diesel_geography::sql_types::*"]
+import_types = ["crate::db::custom_types::Delivery_status", "diesel::sql_types::*", "diesel_geography::sql_types::*"]

@@ -1,5 +1,5 @@
 table! {
-    use crate::db::custom_types::*;
+    use crate::db::custom_types::Delivery_status;
     use diesel::sql_types::*;
     use diesel_geography::sql_types::*;
 
@@ -35,7 +35,7 @@ table! {
 }
 
 table! {
-    use crate::db::custom_types::*;
+    use crate::db::custom_types::Delivery_status;
     use diesel::sql_types::*;
     use diesel_geography::sql_types::*;
 
@@ -113,7 +113,7 @@ table! {
 }
 
 table! {
-    use crate::db::custom_types::*;
+    use crate::db::custom_types::Delivery_status;
     use diesel::sql_types::*;
     use diesel_geography::sql_types::*;
 
@@ -131,7 +131,7 @@ table! {
 }
 
 table! {
-    use crate::db::custom_types::*;
+    use crate::db::custom_types::Delivery_status;
     use diesel::sql_types::*;
     use diesel_geography::sql_types::*;
 
@@ -161,7 +161,7 @@ table! {
 }
 
 table! {
-    use crate::db::custom_types::*;
+    use crate::db::custom_types::Delivery_status;
     use diesel::sql_types::*;
     use diesel_geography::sql_types::*;
 
@@ -191,7 +191,7 @@ table! {
 }
 
 table! {
-    use crate::db::custom_types::*;
+    use crate::db::custom_types::Delivery_status;
     use diesel::sql_types::*;
     use diesel_geography::sql_types::*;
 

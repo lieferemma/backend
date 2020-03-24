@@ -80,3 +80,16 @@ Please make sure to use the following special types in Postgres:
 - `TIMESTAMPTZ` for timestamps - this allows supporting multiple time zones in the future
 - `GEOGRAPHY` for geographical positions (latitude/longitude) - spatial PostGIS datatype
 - `MONEY` for currency amounts e.g. prices - does not lead to rounding errors
+
+## Diesel
+Install diesel_cli via: `cargo install diesel_cli` and diesel_cli_ext via `cargo install diesel_cli_ext`.
+
+Regenerate schema:
+```
+diesel migration run
+```
+
+Regenerate models:
+```
+diesel_ext -t -M "Geography GeogPoint" -M "Delivery_status DeliveryStatus" -I "diesel_geography::types::GeogPoint" -I "crate::db::custom_types::DeliveryStatus" -I "crate::db::schema::*" -s "src/db/schema.rs" > src/db/models.rs
+```
