@@ -3,6 +3,7 @@
 ![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Cargo-Deny](https://img.shields.io/badge/cargo--deny-Dependencies%20checked-blue)
 [![](https://images.microbadger.com/badges/image/lieferemma/backend.svg)](https://microbadger.com/images/lieferemma/backend)
+[![Discord](https://img.shields.io/discord/692016139697651722)](https://discord.gg/rWWpxYG)
 
 # Current State
 - [ ] Database setup
