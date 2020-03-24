@@ -1,1 +1,3 @@
--- This file should undo anything in `up.sql`
+DROP TABLE mobile_shops;
+
+DROP TYPE delivery_status;

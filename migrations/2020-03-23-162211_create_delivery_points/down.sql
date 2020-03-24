@@ -1,1 +1,1 @@
-DROP delivery_points;
+DROP TABLE delivery_points;
