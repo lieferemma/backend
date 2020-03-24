@@ -8,6 +8,22 @@ table! {
 }
 
 table! {
+    mobile_shops (mobile_shop_id) {
+        mobile_shop_id -> Uuid,
+        image_url -> Nullable<Varchar>,
+        title -> Varchar,
+        current_position -> Nullable<Geography>,
+        last_seen -> Nullable<Timestamptz>,
+        current_delivery_point_id -> Nullable<Uuid>,
+        next_delivery_point_id -> Uuid,
+        delivery_status -> Nullable<Delivery_status>,
+        next_delivery_point_eta -> Nullable<Timestamptz>,
+        pick_up_delivery_point_eta -> Nullable<Timestamptz>,
+        route_id -> Uuid,
+    }
+}
+
+table! {
     routes (route_id) {
         route_id -> Uuid,
     }
@@ -39,12 +55,14 @@ table! {
     }
 }
 
+joinable!(mobile_shops -> routes (route_id));
 joinable!(routes_delivery_points -> delivery_points (delivery_point_id));
 joinable!(routes_delivery_points -> routes (route_id));
 joinable!(routes_route_points -> routes (route_id));
 
 allow_tables_to_appear_in_same_query!(
     delivery_points,
+    mobile_shops,
     routes,
     routes_delivery_points,
     routes_route_points,
