@@ -2,4 +2,9 @@
 # see diesel.rs/guides/configuring-diesel-cli
 
 [print_schema]
-file = "src/schema.rs"
+file = "src/db/schema.rs"
+# When this field is set to true, diesel print-schema
+# will act as though the --with-docs flag was passed by default.
+# This places a doc comment on all tables and columns.
+with_docs = true
+import_types = ["crate::db::custom_types::*", "diesel::sql_types::*", "diesel_geography::sql_types::*"]

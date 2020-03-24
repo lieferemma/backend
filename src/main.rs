@@ -1,13 +1,23 @@
+#[macro_use]
+extern crate diesel;
+
 mod api;
+mod cli_opts;
+mod db;
+mod models;
 
 use api::{
     driver::{DriverServer, DriverServerImpl},
     end_customer::{EndCustomerServer, EndCustomerServerImpl},
 };
+use cli_opts::Opt;
+use structopt::StructOpt;
 use tonic::transport::Server;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let opt = Opt::from_args();
+
     let addr = "0.0.0.0:50051".parse()?;
     let end_customer_server = EndCustomerServerImpl {};
     let driver_server = DriverServerImpl {};
