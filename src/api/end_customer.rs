@@ -3,7 +3,7 @@ use crate::{
     api::grpc::{
         AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest,
         DeliveryPoint, DeliveryProduct, DeliveryStatus, MobileShop, OrderReply, OrderRequest,
-        OrderStatusReply, OrderStatusRequest, OrderedProduct, Position, Product, Route,
+        OrderStatusReply, OrderStatusRequest, OrderedProduct, Position, Product, Route, Unit,
     },
     db::{models, schema::mobile_shops::dsl::mobile_shops},
 };
@@ -109,6 +109,8 @@ impl EndCustomer for EndCustomerServerImpl {
             image_url: "https://github.com/lieferemma/media-content/raw/master/LieferEmma_Logo_b_600x600px.png".to_string(),
             // Title of delivery to be displayed to customer e.g. Bakery John Doe
             title: "Bäckerei Max Musterfrau".to_string(),
+            // Phone number the customer can call if she has questions about the products
+            phone_number: "0049170500500".to_string(),
             // Last location updated
             current_position: Some(current_position),
             // Last location update
@@ -158,6 +160,8 @@ impl EndCustomer for EndCustomerServerImpl {
             url: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kaisersemmel-.jpg".to_string(),
             price: 90,
             currency: Currency::Eur as i32,
+            max_order: 100,
+            unit: Unit::Piece as i32,
         };
 
         let ordered_product = OrderedProduct {
@@ -203,6 +207,8 @@ impl EndCustomer for EndCustomerServerImpl {
             url: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kaisersemmel-.jpg".to_string(),
             price: 90,
             currency: Currency::Eur as i32,
+            max_order: 100,
+            unit: Unit::Piece as i32,
         };
 
         let deliverable_product = DeliveryProduct {
