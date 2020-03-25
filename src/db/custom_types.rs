@@ -2,13 +2,11 @@ use diesel::{
     deserialize::{self, FromSql},
     pg::Pg,
     serialize::{self, IsNull, Output, ToSql},
-    sql_types::Uuid as UuidDiesel,
     *,
 };
-use serde::{Deserialize, Serialize};
 use std::io::Write;
-use uuid;
 
+#[allow(non_camel_case_types)]
 #[derive(SqlType)]
 #[postgres(type_name = "delivery_status")]
 pub struct Delivery_status;

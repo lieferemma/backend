@@ -3,13 +3,11 @@
 #![allow(unused)]
 #![allow(clippy::all)]
 
+use crate::db::{custom_types::DeliveryStatus, schema::*};
 use diesel_geography::types::GeogPoint;
-use crate::db::custom_types::DeliveryStatus;
-use crate::db::schema::*;
 
+use chrono::{offset::Utc, DateTime};
 use uuid::Uuid;
-use chrono::DateTime;
-use chrono::offset::Utc;
 
 #[derive(Queryable, Debug, Identifiable)]
 #[primary_key(delivery_point_id)]
@@ -73,4 +71,3 @@ pub struct SpatialRefSy {
     pub srtext: Option<String>,
     pub proj4text: Option<String>,
 }
-
