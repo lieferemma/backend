@@ -11,6 +11,7 @@ use diesel::{prelude::*, r2d2::ConnectionManager};
 use futures::channel::mpsc;
 use futures_util::sink::SinkExt;
 use prost_types::Timestamp;
+use std::convert::TryInto;
 use tonic::{Request, Response, Status};
 
 pub struct EndCustomerServerImpl {
@@ -104,7 +105,7 @@ impl EndCustomer for EndCustomerServerImpl {
             departure_time: Some(Timestamp::default()),
         };
 
-        let mobile_shop = MobileShop {
+        let _mobile_shop = MobileShop {
             mobile_shop_uuid: "e6d99988-a0ed-4665-a368-be1847146c2b".to_string(),
             image_url: "https://github.com/lieferemma/media-content/raw/master/LieferEmma_Logo_b_600x600px.png".to_string(),
             // Title of delivery to be displayed to customer e.g. Bakery John Doe
@@ -136,12 +137,17 @@ impl EndCustomer for EndCustomerServerImpl {
             .load::<models::MobileShop>(&pg_connection)
             .unwrap();
 
-        println!("DB Mobile Shops: {:#?}", db_mobile_shops);
+        let grpc_mobile_shops: Vec<MobileShop> = db_mobile_shops
+            .into_iter()
+            .map(|x| x.try_into().unwrap())
+            .collect();
+
+        println!("DB Mobile Shops: {:#?}", grpc_mobile_shops);
 
         let (mut tx, rx) = mpsc::channel(4);
-        let shops = vec![mobile_shop];
+        // let shops = vec![mobile_shop];
         tokio::spawn(async move {
-            for shop in &shops[..] {
+            for shop in grpc_mobile_shops {
                 tx.send(Ok(shop.clone())).await.unwrap();
             }
         });

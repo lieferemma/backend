@@ -7,6 +7,8 @@ CREATE TABLE mobile_shops (
     image_url VARCHAR(1024),
     -- Title of delivery to be displayed to customer e.g. Bakery John Doe
     title VARCHAR(1024) NOT NULL,
+    -- Phone number the customer can call if she has questions about the products
+    phone_number VARCHAR(80),
     -- Last location updated
     current_position GEOGRAPHY,
     -- Last location update

@@ -26,6 +26,7 @@ pub struct MobileShop {
     pub mobile_shop_id: Uuid,
     pub image_url: Option<String>,
     pub title: String,
+    pub phone_number: Option<String>,
     pub current_position: Option<GeogPoint>,
     pub last_seen: Option<DateTime<Utc>>,
     pub current_delivery_point_id: Option<Uuid>,

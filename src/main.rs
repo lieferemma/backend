@@ -4,7 +4,7 @@ extern crate diesel;
 mod api;
 mod cli_opts;
 mod db;
-mod models;
+mod model_mappings;
 
 use anyhow::Result;
 use api::{
