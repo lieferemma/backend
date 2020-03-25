@@ -11,7 +11,7 @@ license = "MIT"
 anyhow = "1.0"
 async-trait = "0.1"
 chrono = { version = "0.4", features = ["serde"] }
-diesel = { version = "1.4", features = ["postgres", "chrono", "uuidv07"] }
+diesel = { version = "1.4", features = ["chrono", "postgres", "r2d2", "uuidv07"] }
 diesel-geography = { version = "0.2", features = ["serde"] }
 futures = "0.3"
 futures-util = "0.3"
@@ -19,6 +19,7 @@ log = "0.4"
 prost = "0.6"
 prost-types = "0.6"
 structopt = "0.3"
+r2d2 = "0.8"
 tokio = { version = "0.2", features = ["macros"] }
 tonic = "0.1"
 uuid = { version = "0.8", features = ["serde", "v4"] }

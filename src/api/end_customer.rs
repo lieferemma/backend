@@ -1,15 +1,21 @@
 pub use crate::api::grpc::end_customer_server::{EndCustomer, EndCustomerServer};
-use crate::api::grpc::{
-    AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest,
-    DeliveryPoint, DeliveryProduct, DeliveryStatus, MobileShop, OrderReply, OrderRequest,
-    OrderStatusReply, OrderStatusRequest, OrderedProduct, Position, Product, Route,
+use crate::{
+    api::grpc::{
+        AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest,
+        DeliveryPoint, DeliveryProduct, DeliveryStatus, MobileShop, OrderReply, OrderRequest,
+        OrderStatusReply, OrderStatusRequest, OrderedProduct, Position, Product, Route,
+    },
+    db::{models, schema::mobile_shops::dsl::mobile_shops},
 };
+use diesel::{prelude::*, r2d2::ConnectionManager};
 use futures::channel::mpsc;
 use futures_util::sink::SinkExt;
 use prost_types::Timestamp;
 use tonic::{Request, Response, Status};
 
-pub struct EndCustomerServerImpl {}
+pub struct EndCustomerServerImpl {
+    pub pg_connection_pool: r2d2::Pool<ConnectionManager<PgConnection>>,
+}
 
 type RegisterCustomerInterestStream = mpsc::Receiver<Result<MobileShop, Status>>;
 
@@ -119,6 +125,16 @@ impl EndCustomer for EndCustomerServerImpl {
             pick_up_delivery_point_eta: Some(Timestamp::default()),
             route: Some(route),
         };
+
+        let pg_connection_pool = self.pg_connection_pool.clone();
+        let pg_connection = pg_connection_pool.get().unwrap();
+
+        let db_mobile_shops = mobile_shops
+            .limit(30)
+            .load::<models::MobileShop>(&pg_connection)
+            .unwrap();
+
+        println!("DB Mobile Shops: {:#?}", db_mobile_shops);
 
         let (mut tx, rx) = mpsc::channel(4);
         let shops = vec![mobile_shop];

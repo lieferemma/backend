@@ -12,3 +12,13 @@ pub struct Opt {
     #[structopt(long, env = "DATABASE_URL")]
     database_url: String,
 }
+
+impl Opt {
+    pub fn grpc_api_addr(&self) -> &SocketAddr {
+        &self.grpc_api_addr
+    }
+
+    pub fn database_url(&self) -> &str {
+        &self.database_url
+    }
+}
