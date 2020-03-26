@@ -56,6 +56,7 @@ diesel migration run
   - Extension: [uuid-ossp](https://www.postgresql.org/docs/current/uuid-ossp.html) - generate UUIDs using one of several standard algorithms
 - Object Storage: [MinIO](https://min.io/)
 - API: [gRPC](https://gRPC.io/)
+- grpc-web proxy: [envoy](https://www.envoyproxy.io/)
 
 # Database
 - Host name/address postgres
