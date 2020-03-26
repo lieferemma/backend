@@ -66,6 +66,7 @@ impl TryFrom<db::models::MobileShop> for grpc::MobileShop {
                 .transpose()?,
             route: None,
             phone_number: db_mobile_shop.phone_number.unwrap_or_default(),
+            production_client_id: "".to_string(),
         })
     }
 }

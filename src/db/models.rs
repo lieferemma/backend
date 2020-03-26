@@ -35,6 +35,7 @@ pub struct MobileShop {
     pub next_delivery_point_eta: Option<DateTime<Utc>>,
     pub pick_up_delivery_point_eta: Option<DateTime<Utc>>,
     pub route_id: Uuid,
+    pub production_client_id: Option<String>,
 }
 
 #[derive(Queryable, Debug, Identifiable)]

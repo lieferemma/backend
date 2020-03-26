@@ -2,8 +2,9 @@ pub use crate::api::grpc::end_customer_server::{EndCustomer, EndCustomerServer};
 use crate::{
     api::grpc::{
         AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest,
-        DeliveryPoint, DeliveryProduct, DeliveryStatus, MobileShop, OrderReply, OrderRequest,
-        OrderStatusReply, OrderStatusRequest, OrderedProduct, Position, Product, Route, Unit,
+        DeliveryPoint, DeliveryProduct, DeliveryStatus, MobileShop, Order, OrderReply,
+        OrderRequest, OrderStatusReply, OrderStatusRequest, OrderedProduct, PaymentStatus,
+        Position, Product, Route, ShipmentStatus, Unit,
     },
     db::{models, schema::mobile_shops::dsl::mobile_shops},
 };
@@ -127,6 +128,8 @@ impl EndCustomer for EndCustomerServerImpl {
             // Estimated time of arrival at the pick up delivery point
             pick_up_delivery_point_eta: Some(Timestamp::default()),
             route: Some(route),
+            // paypal payment info: PRODUCTION_CLIENT_ID as given by paypal to the shop
+            production_client_id: "".to_string(),
         };
 
         let pg_connection_pool = self.pg_connection_pool.clone();
@@ -191,12 +194,19 @@ impl EndCustomer for EndCustomerServerImpl {
         };
 
         let order_reply = OrderReply {
-            order_uuid: "3feedb57-9f6e-476f-93fb-5515ea831d5f".to_string(),
-            order_id: "abcd".to_string(),
-            pick_up_point: Some(pick_up_point),
-            currency: Currency::Eur as i32,
-            total: 450,
-            ordered_products: vec![ordered_product],
+            order: Some(Order {
+                mobile_shop_uuid: "3107c9bd-dd92-45b5-b6eb-c7b7b83b213e".to_string(),
+                creation_time: Some(Timestamp::default()),
+                update_time: Some(Timestamp::default()),
+                order_uuid: "3feedb57-9f6e-476f-93fb-5515ea831d5f".to_string(),
+                order_id: "abcd".to_string(),
+                pick_up_point: Some(pick_up_point),
+                currency: Currency::Eur as i32,
+                total: 450,
+                ordered_products: vec![ordered_product],
+                shipment_status: ShipmentStatus::Created as i32,
+                payment_status: PaymentStatus::Notpayed as i32,
+            }),
         };
 
         Ok(Response::new(order_reply))
