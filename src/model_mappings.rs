@@ -43,10 +43,7 @@ impl TryFrom<db::models::MobileShop> for grpc::MobileShop {
             image_url: db_mobile_shop.image_url.unwrap_or_default(),
             title: db_mobile_shop.title,
             current_position: db_mobile_shop.current_position.map(|x| x.into()),
-            last_seen: db_mobile_shop
-                .last_seen
-                .map(|dt| to_timestamp(dt))
-                .transpose()?,
+            last_seen: db_mobile_shop.last_seen.map(to_timestamp).transpose()?,
             current_delivery_point: None,
             next_delivery_point: None,
             delivery_status: db_mobile_shop
@@ -58,11 +55,11 @@ impl TryFrom<db::models::MobileShop> for grpc::MobileShop {
                 .unwrap_or_default(),
             next_delivery_point_eta: db_mobile_shop
                 .next_delivery_point_eta
-                .map(|dt| to_timestamp(dt))
+                .map(to_timestamp)
                 .transpose()?,
             pick_up_delivery_point_eta: db_mobile_shop
                 .pick_up_delivery_point_eta
-                .map(|dt| to_timestamp(dt))
+                .map(to_timestamp)
                 .transpose()?,
             route: None,
             phone_number: db_mobile_shop.phone_number.unwrap_or_default(),
