@@ -17,6 +17,7 @@ pub struct DeliveryPoint {
     pub position: GeogPoint,
     pub scheduled_time: DateTime<Utc>,
     pub departure_time: DateTime<Utc>,
+    pub route_id: Uuid,
 }
 
 #[derive(Queryable, Debug, Identifiable)]
@@ -52,15 +53,6 @@ pub struct RoutesDeliveryPoint {
     pub routes_delivery_point_id: Uuid,
     pub route_id: Uuid,
     pub delivery_point_id: Uuid,
-}
-
-#[derive(Queryable, Debug, Identifiable)]
-#[primary_key(route_point_id)]
-#[table_name = "routes_route_points"]
-pub struct RoutesRoutePoint {
-    pub route_point_id: Uuid,
-    pub route_id: Uuid,
-    pub position: GeogPoint,
 }
 
 #[derive(Queryable, Debug, Identifiable)]
