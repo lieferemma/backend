@@ -24,15 +24,15 @@ mod tests {
         let implicit_on_clause = mobile_shops::table.inner_join(
             delivery_points::table.on(mobile_shops::route_id.eq(delivery_points::route_id)),
         );
-        let implicit_on_clause_sql =
+        let _implicit_on_clause_sql =
             dbg!(diesel::debug_query::<Pg, _>(&implicit_on_clause).to_string());
 
-        let pg_connection_manager =
-            ConnectionManager::new("postgres://postgres:changeme@localhost/lieferemma");
-        let pg_connection_pool = r2d2::Pool::new(pg_connection_manager).unwrap();
-        let pg_connection = pg_connection_pool.get().unwrap();
+        // let pg_connection_manager =
+        //     ConnectionManager::new("postgres://postgres:changeme@localhost/lieferemma");
+        // let pg_connection_pool = r2d2::Pool::new(pg_connection_manager).unwrap();
+        // let pg_connection = pg_connection_pool.get().unwrap();
 
-        mobile_shops(pg_connection);
+        // mobile_shops(pg_connection).unwrap();
     }
 }
 
