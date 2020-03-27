@@ -18,7 +18,6 @@ use tonic::transport::Server;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-
     let opt = Opt::from_args();
 
     let pg_connection_manager = ConnectionManager::new(opt.database_url());
