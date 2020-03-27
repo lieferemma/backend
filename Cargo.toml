@@ -23,6 +23,7 @@ r2d2 = "0.8"
 tokio = { version = "0.2", features = ["macros"] }
 tonic = "0.1"
 uuid = { version = "0.8", features = ["serde", "v4"] }
+openssl = "*"
 
 [build-dependencies]
 tonic-build = { version = "0.1.1", default-features = false, features = ["transport"] }

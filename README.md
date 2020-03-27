@@ -114,5 +114,6 @@ diesel migration run
 
 Regenerate models (target file: `src/db/models.rs`):
 ```
-diesel_ext -t -M "Geography GeogPoint" -M "Delivery_status DeliveryStatus" -I "diesel_geography::types::GeogPoint" -I "crate::db::custom_types::DeliveryStatus" -I "crate::db::schema::*" -s "src/db/schema.rs" > src/db/models.rs
+diesel_ext -t -M "Geography GeogPoint" -M "Delivery_status DeliveryStatus" -M "Currency_codes CurrencyCodes" -M "Packaging_unit PackagingUnit" -I "crate::db::custom_types::PackagingUnit"  -I "diesel_geography::types::GeogPoint" -I "crate::db::custom_types::DeliveryStatus" -I "crate::db::custom_types::CurrencyCodes" -I "crate::db::schema::*" -s "src/db/schema.rs" > src/db/models.rs
 ```
+

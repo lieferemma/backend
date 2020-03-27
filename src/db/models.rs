@@ -3,10 +3,14 @@
 #![allow(unused)]
 #![allow(clippy::all)]
 
-use crate::db::{custom_types::DeliveryStatus, schema::*};
+use crate::db::custom_types::CurrencyCodes;
+use crate::db::custom_types::DeliveryStatus;
+use crate::db::custom_types::PackagingUnit;
+use crate::db::schema::*;
 use diesel_geography::types::GeogPoint;
 
-use chrono::{offset::Utc, DateTime};
+use chrono::offset::Utc;
+use chrono::DateTime;
 use uuid::Uuid;
 
 #[derive(Queryable, Debug, Identifiable)]
@@ -37,6 +41,20 @@ pub struct MobileShop {
     pub pick_up_delivery_point_eta: Option<DateTime<Utc>>,
     pub route_id: Uuid,
     pub production_client_id: Option<String>,
+}
+
+#[derive(Queryable, Debug, Identifiable)]
+#[primary_key(product_id)]
+#[table_name = "products"]
+pub struct Product {
+    pub product_id: Uuid,
+    pub title: String,
+    pub description: String,
+    pub image_url: Option<String>,
+    pub price: i64,
+    pub currency: Option<CurrencyCodes>,
+    pub unit: Option<PackagingUnit>,
+    pub max_order: i64,
 }
 
 #[derive(Queryable, Debug, Identifiable)]
