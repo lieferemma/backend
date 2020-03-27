@@ -1,6 +1,6 @@
-CREATE TYPE currency AS ENUM ('DEFAULT', 'EUR');
+CREATE TYPE currency_db AS ENUM ('DEFAULT', 'EUR');
 
-CREATE TYPE unit AS ENUM ('G', 'PIECE', 'METER', 'CRATE', 'BOTTLE', 'BARREL', 'ML');
+CREATE TYPE unit_db AS ENUM ('G', 'PIECE', 'METER', 'CRATE', 'BOTTLE', 'BARREL', 'ML');
 
 CREATE TABLE products (
     product_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
