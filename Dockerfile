@@ -1,12 +1,16 @@
-FROM ekidd/rust-musl-builder:1.42.0 as cargo-build
+FROM rust:1.42.0 as cargo-build
 
-COPY . .
+COPY migrations migrations
+COPY proto proto
+COPY src src
+COPY build.rs build.rs
+COPY Cargo.lock Cargo.lock
+COPY Cargo.toml Cargo.toml
 
-RUN cargo install --path .
+RUN cargo build --release
+RUN cargo install --path . --verbose
 
-FROM alpine:latest
-
-
+FROM debian:10.3-slim
 
 COPY --from=cargo-build /home/rust/.cargo/bin/lieferemma /usr/local/bin/lieferemma
 
