@@ -1,4 +1,4 @@
-FROM ekidd/rust-musl-builder:1.42.0 as cargo-build
+FROM clux/muslrust:1.42.0-stable as cargo-build
 
 COPY . .
 
@@ -8,7 +8,7 @@ FROM alpine:latest
 
 
 
-COPY --from=cargo-build /home/rust/.cargo/bin/lieferemma /usr/local/bin/lieferemma
+COPY --from=cargo-build /root/.cargo/bin/lieferemma /usr/local/bin/lieferemma
 
 ENV RUST_LOG=info
 
