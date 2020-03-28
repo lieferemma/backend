@@ -2,9 +2,9 @@ pub use crate::api::grpc::end_customer_server::{EndCustomer, EndCustomerServer};
 use crate::{
     api::grpc::{
         AvailableProductReply, AvailableProductRequest, Currency, CustomerInterestRequest,
-        DeliveryPoint, DeliveryProduct, MobileShop, Order, OrderReply, OrderRequest,
-        OrderStatusReply, OrderStatusRequest, OrderedProduct, PaymentStatus, Position, Product,
-        ShipmentStatus, Unit,
+        DeliveryPoint, DeliveryProduct, MobileShop, OrderReply, OrderReplyProduct, OrderRequest,
+        OrderStatusReply, OrderStatusRequest, PaymentStatus, Position, Product, ShipmentStatus,
+        TransactionCompleteRequest, TransactionCompleteResponse, Unit,
     },
     db::query,
 };
@@ -61,7 +61,7 @@ impl EndCustomer for EndCustomerServerImpl {
             unit: Unit::Piece as i32,
         };
 
-        let ordered_product = OrderedProduct {
+        let ordered_product = OrderReplyProduct {
             product: Some(product),
             quantity_ordered: 5,
             total_price: 450,
@@ -82,19 +82,17 @@ impl EndCustomer for EndCustomerServerImpl {
         };
 
         let order_reply = OrderReply {
-            order: Some(Order {
-                mobile_shop_uuid: "3107c9bd-dd92-45b5-b6eb-c7b7b83b213e".to_string(),
-                creation_time: Some(Timestamp::default()),
-                update_time: Some(Timestamp::default()),
-                order_uuid: "3feedb57-9f6e-476f-93fb-5515ea831d5f".to_string(),
-                order_id: "abcd".to_string(),
-                pick_up_point: Some(pick_up_point),
-                currency: Currency::Eur as i32,
-                total: 450,
-                ordered_products: vec![ordered_product],
-                shipment_status: ShipmentStatus::Created as i32,
-                payment_status: PaymentStatus::Notpayed as i32,
-            }),
+            mobile_shop_uuid: "3107c9bd-dd92-45b5-b6eb-c7b7b83b213e".to_string(),
+            creation_time: Some(Timestamp::default()),
+            update_time: Some(Timestamp::default()),
+            order_uuid: "3feedb57-9f6e-476f-93fb-5515ea831d5f".to_string(),
+            order_id: "abcd".to_string(),
+            pick_up_point: Some(pick_up_point),
+            currency: Currency::Eur as i32,
+            total: 450,
+            ordered_products: vec![ordered_product],
+            shipment_status: ShipmentStatus::Created as i32,
+            payment_status: PaymentStatus::Notpayed as i32,
         };
 
         Ok(Response::new(order_reply))
@@ -132,6 +130,13 @@ impl EndCustomer for EndCustomerServerImpl {
         &self,
         _request: Request<OrderStatusRequest>,
     ) -> Result<Response<OrderStatusReply>, Status> {
+        unimplemented!()
+    }
+
+    async fn complete_transaction(
+        &self,
+        _request: Request<TransactionCompleteRequest>,
+    ) -> Result<Response<TransactionCompleteResponse>, Status> {
         unimplemented!()
     }
 }
