@@ -2,7 +2,7 @@
 ![CI](https://github.com/lieferemma/backend/workflows/CI/badge.svg)
 ![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Cargo-Deny](https://img.shields.io/badge/cargo--deny-Dependencies%20checked-blue)
-[![](https://images.microbadger.com/badges/image/lieferemma/backend.svg)](https://microbadger.com/images/lieferemma/backend)
+[![](https://img.shields.io/docker/image-size/lieferemma/backend)](https://hub.docker.com/r/lieferemma/backend)
 [![](https://img.shields.io/discord/692016139697651722)](https://discord.gg/rWWpxYG)
 
 # Current State
