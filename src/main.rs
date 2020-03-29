@@ -1,3 +1,4 @@
+// NOTE: order of openssl and diesel are critical for linking
 extern crate openssl;
 #[macro_use]
 extern crate diesel;
