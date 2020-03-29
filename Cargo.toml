@@ -16,14 +16,16 @@ diesel-geography = { version = "0.2", features = ["serde"] }
 futures = "0.3"
 futures-util = "0.3"
 log = "0.4"
+openssl = "0.10"
 prost = "0.6"
 prost-types = "0.6"
-structopt = "0.3"
 r2d2 = "0.8"
+reqwest = "0.10"
+structopt = "0.3"
 tokio = { version = "0.2", features = ["macros"] }
 tonic = "0.1"
+url = "2.1"
 uuid = { version = "0.8", features = ["serde", "v4"] }
-openssl = "0.10"
 
 [build-dependencies]
 tonic-build = { version = "0.1.1", default-features = false, features = ["transport"] }
