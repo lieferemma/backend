@@ -77,15 +77,15 @@ jobs:
     - uses: actions/checkout@v1
     - uses: EmbarkStudios/cargo-deny-action@v0
 
-  publish-docker:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-          submodules: true
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: lieferemma/backend
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+  # publish-docker:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     with:
+  #         submodules: true
+  #   - name: Publish to Registry
+  #     uses: elgohr/Publish-Docker-Github-Action@master
+  #     with:
+  #       name: lieferemma/backend
+  #       username: ${{ secrets.DOCKER_USERNAME }}
+  #       password: ${{ secrets.DOCKER_PASSWORD }}
