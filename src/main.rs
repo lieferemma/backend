@@ -1,3 +1,8 @@
+// NOTE: order of openssl and diesel are critical for linking
+extern crate openssl;
+
+extern crate diesel;
+
 use anyhow::Result;
 use diesel::r2d2::ConnectionManager;
 use lieferemma::{DriverServer, DriverServerImpl, EndCustomerServer, EndCustomerServerImpl, Opt};
