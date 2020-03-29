@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
             submodules: true
+      - name: Build the docker-compose stack
+        run: source .ci.env && docker-compose up -d --build
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -34,7 +36,6 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --lib
 
   fmt:
     name: Rustfmt
