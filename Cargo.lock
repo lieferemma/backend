@@ -679,6 +679,8 @@ dependencies = [
  "prost-types",
  "r2d2",
  "reqwest",
+ "serde",
+ "serde_json",
  "structopt",
  "tokio",
  "tonic",
