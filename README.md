@@ -2,7 +2,7 @@
 ![CI](https://github.com/lieferemma/backend/workflows/CI/badge.svg)
 ![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Cargo-Deny](https://img.shields.io/badge/cargo--deny-Dependencies%20checked-blue)
-[![](https://images.microbadger.com/badges/image/lieferemma/backend.svg)](https://microbadger.com/images/lieferemma/backend)
+[![](https://img.shields.io/docker/image-size/lieferemma/backend)](https://hub.docker.com/r/lieferemma/backend)
 [![](https://img.shields.io/discord/692016139697651722)](https://discord.gg/rWWpxYG)
 
 # Current State
@@ -85,12 +85,35 @@ Please make sure to use the following special types in Postgres:
 ## Diesel
 Install diesel_cli via: `cargo install diesel_cli` and diesel_cli_ext via `cargo install diesel_cli_ext`.
 
+If you wan to change the database schema e.g. add a new table it's best to follow the diesel [Getting started guide](http://diesel.rs/guides/getting-started/). A short overview below:
+
+Adding a new migration (e.g. to add a new table)
+
+```
+diesel migration generate my_new_table_name
+```
+
+This creates a new folder under `src/migrations`.
+Add sql statements to add the table in the empty `up.sql`.
+Add sql statement to drop the table in the empty `down.sql`.
+E.g. up.sql:
+
+```
+CREATE TABLE routes (
+  route_id UUID PRIMARY KEY DEFAULT uuid_generate_v4()
+);
+```
+
 Regenerate schema:
 ```
+docker-compose up -d
+source .dev.env
+# This will change the database schema in your local database according
+# to the available migrations
 diesel migration run
 ```
 
-Regenerate models:
+Regenerate models (target file: `src/db/models.rs`):
 ```
 diesel_ext -t -M "Geography GeogPoint" -M "Delivery_status DeliveryStatus" -I "diesel_geography::types::GeogPoint" -I "crate::db::custom_types::DeliveryStatus" -I "crate::db::schema::*" -s "src/db/schema.rs" > src/db/models.rs
 ```

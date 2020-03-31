@@ -1,10 +1,10 @@
+extern crate openssl;
 #[macro_use]
 extern crate diesel;
 
 mod api;
 mod cli_opts;
 mod db;
-mod model_mappings;
 
 use anyhow::Result;
 use api::{
