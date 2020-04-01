@@ -2,7 +2,10 @@ version: '3.7'
 
 services:
   lieferemma-backend:
-    build: .
+    image: lieferemma/backend:latest
+    environment:
+      GRPC_API_ADDR: 0.0.0.0:50051
+      DATABASE_URL: postgres://postgres:changeme@localhost/lieferemma
     ports:
       - "50051:50051"
     networks:
