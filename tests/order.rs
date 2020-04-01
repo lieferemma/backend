@@ -22,7 +22,7 @@ async fn run_server() -> Result<()> {
     Server::builder()
         .add_service(EndCustomerServer::new(end_customer_server))
         .add_service(DriverServer::new(driver_server))
-        .serve("127.0.0.1:50051".parse()?)
+        .serve("127.0.0.1:60051".parse()?)
         .await?;
 
     Ok(())
@@ -62,7 +62,7 @@ async fn complete_transaction(client: &mut EndCustomerClient<Channel>) -> Result
 }
 
 async fn process() -> Result<()> {
-    let mut client = EndCustomerClient::connect("http://127.0.0.1:50051").await?;
+    let mut client = EndCustomerClient::connect("http://127.0.0.1:60051").await?;
     place_order(&mut client).await?;
     complete_transaction(&mut client).await?;
 
