@@ -6,16 +6,17 @@ use crate::{
         OrderStatusReply, OrderStatusRequest, OrderedProduct, PaymentStatus, Position, Product,
         ShipmentStatus, Unit,
     },
-    db::query,
+    db,
 };
-use diesel::{prelude::*, r2d2::ConnectionManager};
+
 use futures::channel::mpsc;
 use futures_util::sink::SinkExt;
 use prost_types::Timestamp;
+use sqlx::postgres::PgPool;
 use tonic::{Request, Response, Status};
 
 pub struct EndCustomerServerImpl {
-    pub pg_connection_pool: r2d2::Pool<ConnectionManager<PgConnection>>,
+    pub pg_connection_pool: PgPool,
 }
 
 type RegisterCustomerInterestStream = mpsc::Receiver<Result<MobileShop, Status>>;
@@ -29,9 +30,8 @@ impl EndCustomer for EndCustomerServerImpl {
         _request: Request<CustomerInterestRequest>,
     ) -> Result<Response<Self::RegisterCustomerInterestStream>, Status> {
         let pg_connection_pool = self.pg_connection_pool.clone();
-        let pg_connection = pg_connection_pool.get().unwrap();
 
-        let mobile_shops = query::mobile_shops(pg_connection).unwrap();
+        let mobile_shops = db::mobile_shops(&pg_connection_pool).await.unwrap();
 
         println!("DB Mobile Shops: {:#?}", mobile_shops);
 

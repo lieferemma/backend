@@ -4,3 +4,6 @@
 [submodule "grpc-web-proxy"]
 	path = grpc-web-proxy
 	url = https://github.com/lieferemma/grpc-web-proxy
+[submodule "sqlx"]
+	path = sqlx
+	url = git@github.com:launchbadge/sqlx.git

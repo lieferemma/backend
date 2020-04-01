@@ -1,7 +1,3 @@
-extern crate openssl;
-#[macro_use]
-extern crate diesel;
-
 mod api;
 mod cli_opts;
 mod db;
@@ -12,8 +8,8 @@ use api::{
     end_customer::{EndCustomerServer, EndCustomerServerImpl},
 };
 use cli_opts::Opt;
-use diesel::r2d2::ConnectionManager;
 use log::info;
+use sqlx::postgres::PgPool;
 use structopt::StructOpt;
 use tokio_postgres::NoTls;
 use tonic::transport::Server;
@@ -30,9 +26,6 @@ async fn main() -> Result<()> {
     let opt = Opt::from_args();
     info!("Running with following options:\n{:#?}", opt);
 
-    let pg_connection_manager = ConnectionManager::new(opt.database_url());
-    let pg_connection_pool = r2d2::Pool::new(pg_connection_manager)?;
-
     // Run the database migrations
     let (mut migration_client, migration_connection) =
         tokio_postgres::connect(opt.database_url(), NoTls).await?;
@@ -43,6 +36,11 @@ async fn main() -> Result<()> {
 
     embedded::migrations::runner()
         .run_async(&mut migration_client)
+        .await?;
+
+    let pg_connection_pool = PgPool::builder()
+        .max_size(10)
+        .build(opt.database_url())
         .await?;
 
     let end_customer_server = EndCustomerServerImpl { pg_connection_pool };
