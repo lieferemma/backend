@@ -1,6 +1,8 @@
 extern crate openssl;
 #[macro_use]
 extern crate diesel;
+#[macro_use]
+extern crate diesel_migrations;
 
 mod api;
 mod cli_opts;
@@ -16,12 +18,19 @@ use diesel::r2d2::ConnectionManager;
 use structopt::StructOpt;
 use tonic::transport::Server;
 
+// This includes the diesel migrations in the binary
+embed_migrations!();
+
 #[tokio::main]
 async fn main() -> Result<()> {
     let opt = Opt::from_args();
 
     let pg_connection_manager = ConnectionManager::new(opt.database_url());
-    let pg_connection_pool = r2d2::Pool::new(pg_connection_manager).unwrap();
+    let pg_connection_pool = r2d2::Pool::new(pg_connection_manager)?;
+
+    // Run the diesel migrations
+    let pg_connection = pg_connection_pool.get()?;
+    embedded_migrations::run_with_output(&pg_connection, &mut std::io::stdout())?;
 
     let end_customer_server = EndCustomerServerImpl { pg_connection_pool };
     let driver_server = DriverServerImpl {};
