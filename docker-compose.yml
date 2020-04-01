@@ -14,7 +14,10 @@ services:
       - api
 
   grpc-web-proxy:
-    build: ./grpc-web-proxy/
+    build:
+      context: ./grpc-web-proxy/
+      args:
+        - GRPC_SERVER=lieferemma-backend
     ports:
       - "8080:8080"
     networks:
