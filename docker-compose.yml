@@ -15,6 +15,8 @@ services:
 
   grpc-web-proxy:
     build: ./grpc-web-proxy/
+    environment:
+      GRPC_SERVER: lieferemma-backend
     ports:
       - "8080:8080"
     networks:
