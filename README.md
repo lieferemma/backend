@@ -41,9 +41,10 @@ RUST_LOG=debug cargo run
 ## Prepare database
 This projects uses ["Diesel"](https://diesel.rs/) for database migrations.
 The database migrations create the initial database schema, set up the required Postgres extensions and in general allow updating the schema of an existing database.
-You must install the [diesel cli tool](https://diesel.rs/guides/getting-started/) in order to run the database migrations.
+Database migrations are executed automatically when the backend is started.
+You must install the [diesel cli tool](https://diesel.rs/guides/getting-started/) in order to manually run the database migrations.
 
-To run the migrations in a dev setup run:
+To manually run the migrations in a dev setup run:
 ```
 source .dev.env
 diesel migration run
