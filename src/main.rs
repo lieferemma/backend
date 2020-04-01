@@ -15,6 +15,7 @@ use api::{
 };
 use cli_opts::Opt;
 use diesel::r2d2::ConnectionManager;
+use log::info;
 use structopt::StructOpt;
 use tonic::transport::Server;
 
@@ -23,7 +24,10 @@ embed_migrations!();
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    env_logger::init();
+
     let opt = Opt::from_args();
+    info!("Running with following options:\n{:#?}", opt);
 
     let pg_connection_manager = ConnectionManager::new(opt.database_url());
     let pg_connection_pool = r2d2::Pool::new(pg_connection_manager)?;
@@ -35,7 +39,7 @@ async fn main() -> Result<()> {
     let end_customer_server = EndCustomerServerImpl { pg_connection_pool };
     let driver_server = DriverServerImpl {};
 
-    println!("gRPC API served from {}", opt.grpc_api_addr());
+    info!("gRPC API served from {}", opt.grpc_api_addr());
 
     Server::builder()
         .add_service(EndCustomerServer::new(end_customer_server))

@@ -4,8 +4,9 @@ services:
   lieferemma-backend:
     image: lieferemma/backend:latest
     environment:
+      RUST_LOG: debug
       GRPC_API_ADDR: 0.0.0.0:50051
-      DATABASE_URL: postgres://postgres:changeme@localhost/lieferemma
+      DATABASE_URL: postgres://postgres:changeme@postgres/lieferemma
     ports:
       - "50051:50051"
     networks:
