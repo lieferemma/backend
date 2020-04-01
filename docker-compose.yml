@@ -11,6 +11,7 @@ services:
       - "50051:50051"
     networks:
       - postgres
+      - api
 
   grpc-web-proxy:
     build: ./grpc-web-proxy/
