@@ -29,7 +29,7 @@
 Build and run from source using docker-compose:
 
 ```
-docker-compose up -d
+docker-compose pull && docker-compose up -d
 ```
 
 To avoid rebuilding the backend docker image during development you should directly run cargo:
