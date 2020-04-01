@@ -1,8 +1,6 @@
 extern crate openssl;
 #[macro_use]
 extern crate diesel;
-#[macro_use]
-extern crate diesel_migrations;
 
 mod api;
 mod cli_opts;
@@ -17,10 +15,13 @@ use cli_opts::Opt;
 use diesel::r2d2::ConnectionManager;
 use log::info;
 use structopt::StructOpt;
+use tokio_postgres::NoTls;
 use tonic::transport::Server;
 
-// This includes the diesel migrations in the binary
-embed_migrations!();
+mod embedded {
+    use refinery::embed_migrations;
+    embed_migrations!("./migrations");
+}
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -32,9 +33,17 @@ async fn main() -> Result<()> {
     let pg_connection_manager = ConnectionManager::new(opt.database_url());
     let pg_connection_pool = r2d2::Pool::new(pg_connection_manager)?;
 
-    // Run the diesel migrations
-    let pg_connection = pg_connection_pool.get()?;
-    embedded_migrations::run_with_output(&pg_connection, &mut std::io::stdout())?;
+    // Run the database migrations
+    let (mut migration_client, migration_connection) =
+        tokio_postgres::connect(opt.database_url(), NoTls).await?;
+
+    tokio::spawn(async move {
+        migration_connection.await.unwrap();
+    });
+
+    embedded::migrations::runner()
+        .run_async(&mut migration_client)
+        .await?;
 
     let end_customer_server = EndCustomerServerImpl { pg_connection_pool };
     let driver_server = DriverServerImpl {};

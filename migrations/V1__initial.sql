@@ -1,3 +1,25 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "postgis";
+
+CREATE TABLE delivery_points (
+  delivery_point_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  route_id UUID NOT NULL,
+  position GEOGRAPHY NOT NULL,
+  scheduled_time TIMESTAMPTZ NOT NULL,
+  departure_time TIMESTAMPTZ NOT NULL
+);
+
+CREATE INDEX delivery_points_idx ON delivery_points (route_id);
+
+CREATE TABLE routes (
+  route_id UUID PRIMARY KEY DEFAULT uuid_generate_v4()
+);
+
+CREATE TABLE routes_delivery_points (
+    routes_delivery_point_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    route_id UUID NOT NULL REFERENCES routes(route_id),
+    delivery_point_id UUID NOT NULL REFERENCES delivery_points(delivery_point_id)
+);
 
 CREATE TYPE delivery_status AS ENUM ('ON_TOUR', 'PARKED');
 
@@ -24,5 +46,7 @@ CREATE TABLE mobile_shops (
     -- Estimated time of arrival at the pick up delivery point
     pick_up_delivery_point_eta TIMESTAMPTZ,
     -- Current route of this mobile shop
-    route_id UUID NOT NULL REFERENCES routes(route_id)
+    route_id UUID NOT NULL REFERENCES routes(route_id),
+    -- Payment transaction id
+    production_client_id varchar(64)
 );

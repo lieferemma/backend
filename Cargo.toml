@@ -13,19 +13,20 @@ async-trait = "0.1"
 chrono = { version = "0.4", features = ["serde"] }
 diesel = { version = "1.4", features = ["chrono", "postgres", "r2d2", "uuidv07"] }
 diesel-geography = { version = "0.2", features = ["serde"] }
-diesel_migrations = "1.4"
 env_logger = "0.7"
 futures = "0.3"
 futures-util = "0.3"
 log = "0.4"
+openssl = "0.10"
 prost = "0.6"
 prost-types = "0.6"
-structopt = "0.3"
 r2d2 = "0.8"
+refinery = { version = "0.2", features = ["tokio", "tokio-postgres"] }
+structopt = "0.3"
 tokio = { version = "0.2", features = ["macros"] }
+tokio-postgres = "0.5"
 tonic = "0.1"
 uuid = { version = "0.8", features = ["serde", "v4"] }
-openssl = "0.10"
 
 [build-dependencies]
 tonic-build = { version = "0.1.1", default-features = false, features = ["transport"] }
