@@ -3,4 +3,4 @@
 	url = https://github.com/lieferemma/api
 [submodule "grpc-web-proxy"]
 	path = grpc-web-proxy
-	url = git@github.com:lieferemma/grpc-web-proxy.git
+	url = https://github.com/lieferemma/grpc-web-proxy
