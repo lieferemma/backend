@@ -21,7 +21,7 @@ CREATE TABLE routes_delivery_points (
     delivery_point_id UUID NOT NULL REFERENCES delivery_points(delivery_point_id)
 );
 
-CREATE TYPE delivery_status AS ENUM ('ON_TOUR', 'PARKED');
+CREATE TYPE delivery_status AS ENUM ('on_tour', 'parked');
 
 CREATE TABLE mobile_shops (
     mobile_shop_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),

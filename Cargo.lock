@@ -103,7 +103,7 @@ version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b25d992356d2eb0ed82172f5248873db5560c4721f564b13cb5193bda5e668e"
 dependencies = [
- "byteorder 1.3.4",
+ "byteorder",
 ]
 
 [[package]]
@@ -137,7 +137,7 @@ checksum = "c0940dc441f31689269e10ac70eb1002a3a1d3ad1390e030043662eb7fe4688b"
 dependencies = [
  "block-padding",
  "byte-tools",
- "byteorder 1.3.4",
+ "byteorder",
  "generic-array",
 ]
 
@@ -155,12 +155,6 @@ name = "byte-tools"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3b5ca7a04898ad4bcd41c90c5285445ff5b791899bb1b0abdd2a2aa791211d7"
-
-[[package]]
-name = "byteorder"
-version = "0.5.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0fc10e8cc6b2580fda3f36eb6dc5316657f812a3df879a44a66fc9f0fdbc4855"
 
 [[package]]
 name = "byteorder"
@@ -1000,38 +994,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "05da548ad6865900e60eaba7f589cc0783590a92e940c26953ff81ddbab2d677"
 
 [[package]]
-name = "postgis"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d84463c02e6d4ac1d88c5a8205d809d770afc9ddaaf6074c7fd17d6dc492ba5b"
-dependencies = [
- "byteorder 0.5.3",
- "bytes",
- "postgres",
-]
-
-[[package]]
-name = "postgres"
-version = "0.17.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "18741b59a558e4dfdb9c968e8126dccbefd6a16bf54e3bc5668d420b4c4ed71b"
-dependencies = [
- "bytes",
- "fallible-iterator",
- "futures",
- "log",
- "tokio",
- "tokio-postgres",
-]
-
-[[package]]
 name = "postgres-protocol"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f611afe4d1407ebe7f3ced1ffc66f730fac1b1c13085e230a8cdcb921e97710"
 dependencies = [
  "base64 0.12.0",
- "byteorder 1.3.4",
+ "byteorder",
  "bytes",
  "fallible-iterator",
  "hmac",
@@ -1476,6 +1445,8 @@ dependencies = [
 [[package]]
 name = "sqlx"
 version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "17c5b3c703ccc50d399fdd528464671eecc859a3d32b296c88ee22fd74649b5c"
 dependencies = [
  "sqlx-core",
  "sqlx-macros",
@@ -1484,13 +1455,15 @@ dependencies = [
 [[package]]
 name = "sqlx-core"
 version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f285332c31f70075e2bcf020ee92cb9e6a9bf25462f9905e179ad961570d3526"
 dependencies = [
  "async-native-tls",
  "async-stream",
  "base64 0.12.0",
  "bigdecimal",
  "bitflags",
- "byteorder 1.3.4",
+ "byteorder",
  "chrono",
  "crossbeam-queue",
  "crossbeam-utils",
@@ -1505,7 +1478,6 @@ dependencies = [
  "memchr",
  "num-bigint",
  "percent-encoding 2.1.0",
- "postgis",
  "rand",
  "sha-1",
  "sha2",
@@ -1517,6 +1489,8 @@ dependencies = [
 [[package]]
 name = "sqlx-macros"
 version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fb6c19726cab4ea2450efd981c8f6f8398226f73492c0bae728a923c1e701980"
 dependencies = [
  "dotenv",
  "futures",
@@ -1722,7 +1696,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "524da2f17264514c854ac770177bdb810f0db7e706ae69f143d6e6828e3c4fe3"
 dependencies = [
  "async-trait",
- "byteorder 1.3.4",
+ "byteorder",
  "bytes",
  "fallible-iterator",
  "futures",

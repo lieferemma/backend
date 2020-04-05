@@ -16,6 +16,16 @@ fn to_timestamp(dt: DateTime<Utc>) -> Result<Timestamp> {
     })
 }
 
+#[derive(PartialEq, Debug, sqlx::Type)]
+#[sqlx(rename = "public.delivery_status")]
+pub enum DeliveryStatus {
+    #[sqlx(rename = "on_tour")]
+    OnTour,
+    #[sqlx(rename = "parked")]
+    Parked,
+}
+
+
 #[derive(Debug, sqlx::FromRow)]
 pub struct MobileShopWithDeliveryPoint {
     pub mobile_shop_id: Uuid,
@@ -25,6 +35,7 @@ pub struct MobileShopWithDeliveryPoint {
     pub last_seen: Option<DateTime<Utc>>,
     pub current_delivery_point_id: Option<Uuid>,
     pub next_delivery_point_id: Uuid,
+    pub delivery_status: DeliveryStatus,
     pub next_delivery_point_eta: Option<DateTime<Utc>>,
     pub pick_up_delivery_point_eta: Option<DateTime<Utc>>,
     pub route_id: Uuid,
@@ -47,6 +58,7 @@ ms.phone_number,
 ms.last_seen,
 ms.current_delivery_point_id,
 ms.next_delivery_point_id,
+ms.delivery_status,
 ms.next_delivery_point_eta,
 ms.pick_up_delivery_point_eta,
 ms.route_id,
