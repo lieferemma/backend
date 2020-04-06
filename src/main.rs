@@ -1,3 +1,4 @@
+// NOTE: order of openssl and diesel are critical for linking
 extern crate openssl;
 #[macro_use]
 extern crate diesel;
@@ -9,12 +10,8 @@ mod cli_opts;
 mod db;
 
 use anyhow::Result;
-use api::{
-    driver::{DriverServer, DriverServerImpl},
-    end_customer::{EndCustomerServer, EndCustomerServerImpl},
-};
-use cli_opts::Opt;
 use diesel::r2d2::ConnectionManager;
+use lieferemma::{DriverServer, DriverServerImpl, EndCustomerServer, EndCustomerServerImpl, Opt};
 use log::info;
 use structopt::StructOpt;
 use tonic::transport::Server;
